@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAFAF8;
+    color: #1A1A1A;
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F3F3EE;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #D4D4CC;
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9B9B9B;
+  }
+
+  ::selection {
+    background: rgba(27, 79, 216, 0.15);
+    color: #1A1A1A;
+  }
+}
+
+@layer components {
+  /* Graph paper background */
+  .bg-notebook {
+    background-color: #FAFAF8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cdefs%3E%3Cpattern id='small' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 8 0 L 0 0 0 8' fill='none' stroke='%23E2E2D8' stroke-width='0.5'/%3E%3C/pattern%3E%3Cpattern id='large' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Crect width='40' height='40' fill='url(%23small)'/%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%23D4D4CA' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='40' height='40' fill='url(%23large)'/%3E%3C/svg%3E");
+  }
+
+  /* Ruled paper lines */
+  .bg-ruled {
+    background-color: #FAFAF8;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      #E2E2D8 31px,
+      #E2E2D8 32px
+    );
+    background-size: 100% 32px;
+  }
+
+  /* Margin line decoration */
+  .has-margin-line {
+    position: relative;
+  }
+  .has-margin-line::before {
+    content: '';
+    position: absolute;
+    left: 64px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #F0B8B8;
+    pointer-events: none;
+  }
+
+  /* Prose styles — light theme */
+  .prose-notebook {
+    @apply text-ink-2 leading-relaxed;
+  }
+
+  .prose-notebook h1 {
+    @apply text-2xl font-serif text-ink font-normal mb-4 mt-8 first:mt-0 border-b border-rule pb-3;
+  }
+
+  .prose-notebook h2 {
+    @apply text-xl font-sans font-semibold text-ink mb-3 mt-6 first:mt-0;
+  }
+
+  .prose-notebook h3 {
+    @apply text-base font-sans font-semibold text-ink-2 mb-2 mt-5;
+  }
+
+  .prose-notebook h4 {
+    @apply text-sm font-sans font-semibold text-ink-2 mb-2 mt-4;
+  }
+
+  .prose-notebook p {
+    @apply mb-4 text-ink-2 leading-7;
+  }
+
+  .prose-notebook a {
+    @apply text-accent hover:text-accent-light underline underline-offset-2 transition-colors;
+  }
+
+  .prose-notebook ul {
+    @apply list-disc list-inside mb-4 space-y-1 text-ink-2;
+  }
+
+  .prose-notebook ol {
+    @apply list-decimal list-inside mb-4 space-y-1 text-ink-2;
+  }
+
+  .prose-notebook li {
+    @apply leading-7;
+  }
+
+  .prose-notebook code {
+    @apply font-mono text-[0.8em] bg-paper-dark text-accent border border-rule px-1.5 py-0.5 rounded;
+  }
+
+  .prose-notebook pre {
+    @apply bg-paper-dark border border-rule rounded p-4 mb-4 overflow-x-auto;
+  }
+
+  .prose-notebook pre code {
+    @apply bg-transparent border-0 text-ink-2 p-0 text-sm;
+  }
+
+  .prose-notebook blockquote {
+    @apply border-l-2 border-accent pl-4 italic text-ink-3 mb-4;
+  }
+
+  .prose-notebook table {
+    @apply w-full mb-4 border-collapse;
+  }
+
+  .prose-notebook th {
+    @apply text-left px-3 py-2 bg-paper-dark text-ink font-semibold border border-rule text-sm font-mono;
+  }
+
+  .prose-notebook td {
+    @apply px-3 py-2 text-ink-2 border border-rule text-sm;
+  }
+
+  .prose-notebook tr:nth-child(even) td {
+    @apply bg-paper-dark;
+  }
+
+  .prose-notebook hr {
+    @apply border-rule my-6;
+  }
+
+  .prose-notebook img {
+    @apply max-w-full my-4;
+  }
+
+  /* Button system */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-accent text-white font-mono font-medium px-5 py-2.5
+    hover:bg-accent-light transition-all duration-150 active:scale-95 text-sm tracking-wide
+    border border-accent;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-ink-3 hover:text-ink px-4 py-2
+    hover:bg-paper-dark transition-all duration-150 font-mono text-sm border border-transparent hover:border-rule;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-rule text-ink-3 hover:border-ink-3 hover:text-ink
+    px-4 py-2 transition-all duration-150 font-mono text-sm;
+  }
+
+  .input-base {
+    @apply w-full bg-white border border-rule px-4 py-3 text-ink
+    placeholder:text-ink-4 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/20
+    font-mono text-sm transition-all duration-150;
+  }
+
+  /* Notebook card */
+  .card-notebook {
+    @apply bg-white border border-rule;
+  }
+
+  /* Section label style */
+  .section-label {
+    @apply font-mono text-xs text-ink-4 uppercase tracking-[0.15em];
+  }
+
+  /* Coordinate markers */
+  .coord-marker {
+    @apply font-mono text-[10px] text-ink-5 select-none;
+  }
+}
