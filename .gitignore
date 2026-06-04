@@ -1,0 +1,22 @@
+# --- Python Environment & Packages ---
+.venv/
+venv/
+env/
+ENV/
+pyvenv.cfg
+
+# --- Python Cache Directories ---
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Secrets & Environment Variables ---
+.env
+.env.*
+! .env.example
+
+# --- IDEs & System Junk ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
