@@ -1,22 +1,29 @@
-# --- Python Environment & Packages ---
+# ── Python ────────────────────────────────────────────────────────────
 .venv/
 venv/
 env/
 ENV/
 pyvenv.cfg
-
-# --- Python Cache Directories ---
 **/__pycache__/
 *.py[cod]
 *$py.class
 
-# --- Secrets & Environment Variables ---
+# ── Node / JS ─────────────────────────────────────────────────────────
+node_modules/
+dist/
+*.log
+*.tsbuildinfo
+
+# ── Environment variables (secrets) ───────────────────────────────────
 .env
 .env.*
-! .env.example
+.env.local
+!.env.example
 
-# --- IDEs & System Junk ---
+# ── IDEs ──────────────────────────────────────────────────────────────
 .vscode/
 .idea/
+
+# ── OS ────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db

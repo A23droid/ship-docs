@@ -10,16 +10,30 @@ from LLM_operations.llm import generate_markdown_readme
 
 app = FastAPI()
 
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[
+#         "http://localhost:5173",   # Vite dev server
+#         "http://localhost:4173",   # Vite preview
+#     ],
+#     allow_methods=["GET", "POST", "OPTIONS"],
+#     allow_headers=["Content-Type"],
+# )
+
+
+
+frontend_urls = os.getenv(
+    "FRONTEND_URLS",
+    "http://localhost:5173"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",   # Vite dev server
-        "http://localhost:4173",   # Vite preview
-    ],
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_origins=frontend_urls,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-
 
 class ShipDocsRequest(BaseModel):
     github_url: HttpUrl

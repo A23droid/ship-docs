@@ -1,0 +1,9 @@
+services:
+  shipdocs-backend:
+    build: 
+        context: ./backend
+        dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env  # Automatically passes your local GROQ and GITHUB tokens inside!
