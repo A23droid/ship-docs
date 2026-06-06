@@ -1,6 +1,7 @@
+// frontend/src/hooks/useGenerate.ts
 import { useState, useCallback } from 'react'
 import { generateReadme } from '../utils/api'
-import type { GenerateRequest, AppView } from '../types'
+import type { AppView } from '../types'
 
 interface UseGenerateReturn {
   markdown: string
@@ -24,15 +25,22 @@ export function useGenerate(): UseGenerateReturn {
   const [description, setDescription] = useState<string>('')
 
   const runGeneration = useCallback(
-    async (payload: GenerateRequest) => {
+    async (repoUrlValue: string, descriptionValue?: string) => {
       setError(null)
       setView('loading')
       try {
-        const result = await generateReadme(payload)
-        setMarkdown(result.markdown)
+        const result = await generateReadme({
+          github_url: repoUrlValue,           // map UI state → backend field name
+          description: descriptionValue,
+        })
+        setMarkdown(result.markdown_text)     // map backend field → UI state
         setView('result')
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please try again.'
+        )
         setView('landing')
       }
     },
@@ -40,11 +48,11 @@ export function useGenerate(): UseGenerateReturn {
   )
 
   const handleGenerate = useCallback(async () => {
-    await runGeneration({ repoUrl: repoUrl.trim(), description: description.trim() || undefined })
+    await runGeneration(repoUrl.trim(), description.trim() || undefined)
   }, [repoUrl, description, runGeneration])
 
   const handleRegenerate = useCallback(async () => {
-    await runGeneration({ repoUrl: repoUrl.trim(), description: description.trim() || undefined })
+    await runGeneration(repoUrl.trim(), description.trim() || undefined)
   }, [repoUrl, description, runGeneration])
 
   const handleReset = useCallback(() => {
